@@ -1,0 +1,12 @@
+// sensors.nqh - where everything related to sensors is defined
+
+#define LIGHT_CYL SENSOR_1
+#define LIGHT_LINE SENSOR_2
+#define TOUCH SENSOR_3
+
+void InitSensors()
+{
+  SetSensorType( LIGHT_CYL, SENSOR_LIGHT );
+  SetSensorType( LIGHT_LINE, SENSOR_LIGHT );
+  SetSensorType( TOUCH, SENSOR_TOUCH );
+}
