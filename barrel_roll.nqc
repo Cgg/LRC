@@ -1,12 +1,51 @@
 // BarrelRoll.nqc - where the barrel lifting stuff is done
 
+#include "sensors.nqc"
+#include "claw.nqc"
+
+#define BALL_THRESHOLD 760    // upper limit
+#define CYL_THRESHOLD  820    // lower limit
+// when the value is between these two it means that there is nothing
+
+#define LAST_LIFT 100 // in ms
+
 task barrelRoll()
 {
-  // put down the claw
-  // lift it (but not too much)
-  // check that the barrel is indeed lifted
+  do
+  {
+    // put down the claw
+    DropClaw();
+    Wait( 10 );
+    until( TOUCH == 1 );
+    StopClaw();
+
+    // lift it (but not too much)
+    LiftClaw();
+    Wait( 10 );
+    until( TOUCH == 1 );
+    StopClaw();
+    
+    // check that the barrel is indeed lifted
+  } while( LIGHT_CYL > CYL_THRESHOLD );
+  
   // get out of the playfield
+  SetDirection( LEFT + RIGHT, OUT_REV );
+  SetOutput( LEFT + RIGHT, OUT_ON );
+  until( LIGHT_LINE < LINEDETECTIONTHRESHOLD );
+  SetOutput( LEFT + RIGHT, OUT_OFF );
+  
   // release the barrel (lift the claw completely)
+  LiftClaw();
+  Wait( LAST_LIFT );
+  
   // if the ball is there, launch the Victory task
   // else launch the RoamingAround task
+  if( LIGHT_CYL < BALL_THRESHOLD )
+  {
+    start victory;
+  }
+  else
+  {
+    start roaming;
+  }
 }
