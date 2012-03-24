@@ -1,16 +1,17 @@
 #define LEFT OUT_A
-#define CLAW OUT_B
 #define RIGHT OUT_C
 
 #define LIGHT_CYL SENSOR_1
 #define LIGHT_LINE SENSOR_2
 #define TOUCH SENSOR_3
 
+#include "claw.nqc"
+
 void InitSensors()
 {
-  SetSensor( LIGHT_CYL, SENSOR_LIGHT );
-  SetSensor( LIGHT_LINE, SENSOR_LIGHT );
-  SetSensor( TOUCH, SENSOR_TOUCH );
+  SetSensorType( LIGHT_CYL, SENSOR_LIGHT );
+  SetSensorType( LIGHT_LINE, SENSOR_LIGHT );
+  SetSensorType( TOUCH, SENSOR_TOUCH );
 }
 
 task main()
@@ -20,8 +21,15 @@ task main()
   while( 1 )
   {
     until( TOUCH == 1 );
+    LiftClaw();
+    
     until( TOUCH == 1 );
+    StopClaw();
+    
     until( TOUCH == 1 );
+    DropClaw();
+    
     until( TOUCH == 1 );
+    StopClaw();
   }
 }
