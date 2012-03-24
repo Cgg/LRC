@@ -1,0 +1,26 @@
+#define OUT_A LEFT
+#define OUT_B CLAW
+#define OUT_C RIGHT
+
+#define LIGHT_CYL SENSOR_ONE
+#define LIGHT_LINE SENSOR_TWO
+#define TOUCH SENSOR_THREE
+
+void InitSensors()
+{
+  SetSensor( LIGHT_CYL, SENSOR_LIGHT );
+  SetSensor( LIGHT_LINE, SENSOR_LIGHT );
+  SetSensor( TOUCH, SENSOR_TOUCH );
+}
+
+task main()
+{
+  InitSensors();
+  
+  while( 1 )
+  {
+    until( TOUCH == 1 );
+    until( TOUCH == 1 );
+    until( TOUCH == 1 );
+  }
+}
