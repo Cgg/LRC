@@ -2,4 +2,11 @@
 
 task barrelRoll()
 {
+  // put down the claw
+  // lift it (but not too much)
+  // check that the barrel is indeed lifted
+  // get out of the playfield
+  // release the barrel (lift the claw completely)
+  // if the ball is there, launch the Victory task
+  // else launch the RoamingAround task
 }
