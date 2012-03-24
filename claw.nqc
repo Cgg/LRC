@@ -1,0 +1,18 @@
+#define CLAW OUT_B
+
+sub LiftClaw()
+{
+  SetDirection( CLAW, OUT_FWD );
+  SetOutput( CLAW, OUT_ON );
+}
+
+sub DropClaw()
+{
+  SetDirection( CLAW, OUT_REV );
+  SetOutput( CLAW, OUT_ON );
+}
+
+sub StopClaw()
+{
+  SetOutput( CLAW, OUT_OFF );
+}
