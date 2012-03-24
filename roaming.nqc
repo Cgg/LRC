@@ -1,0 +1,59 @@
+
+#define LINEHIGHTHRESHOLD 60
+#define LINELOWTHRESHOLD 30
+
+#define LINEDETECTIONTHRESHOLD 80
+
+#define ROAMINGSTRATEGY FollowTheLine
+//#define ROMAINGSTRATEGY RandomRoaming
+
+
+void DoFollowTheLine(){
+     OnFwd(LEFT + RIGHT);
+  while ( LIGHT_LINE >= LINELOWTHRESHOLD && LIGHT_LINE <= LINEHIGHTHRESHOLD) ; //do nothing while it's ok
+  //not ok anymore
+}
+
+
+void CorrectTrajectory(){
+
+  if(    LIGHT_LINE < LINELOWTHRESHOLD      ){ //to far to the right, go left
+    Off(LEFT);
+    until(LIGHT_LINE >= LINELOWTHRESHOLD);
+  }else if ( LIGHT_LINE > LINEHIGHTHRESHOLD ) {
+    Off(RIGHT);
+    until(LIGHT_LINE <= LINEHIGHTHRESHOLD);
+  }
+
+
+}
+
+void FollowTheLine()
+{
+  //Assume the line is on our right side
+
+  //let's find it
+  Off (RIGHT);
+  OnFwd (LEFT);
+
+  until( LIGHT_LINE >= LINELOWTHRESHOLD && LIGHT_LINE <= LINEHIGHTHRESHOLD );//found it
+
+  while(1)  DoFollowTheLine();
+
+
+}
+
+void RandomRoaming(){
+  //go straight
+  //Hit the line
+  //turn some random angle and pray we're still inside
+  //loop
+  
+}
+
+task RoamingArround()
+{
+  //here the goal is to travel the play ground in search of cylindres
+  ROAMINGSTRATEGY();
+
+}

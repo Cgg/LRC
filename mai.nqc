@@ -6,10 +6,9 @@
 #define TOUCH SENSOR_3
 
 
-#define LINEHIGHTHRESHOLD 60
-#define LINELOWTHRESHOLD 30
-
 #include "claw.nqc"
+#include "roaming.nqc"
+
 
 
 void InitSensors()
@@ -22,6 +21,9 @@ void InitSensors()
 task main()
 {
   InitSensors();
+
+  
+  start RoamingArround;
   
   while( 1 )
   {
@@ -39,37 +41,4 @@ task main()
   }
 }
 
-sub FollowTheLine(){
-     OnFwd(LEFT + RIGHT);
-  while ( LIGHT_LINE >= LINELOWTHRESHOLD && LIGHT_LINE <= LINEHIGHTHRESHOLD) ; //do nothing while it's ok
-  //not ok anymore
-}
 
-
-sub CorrectTrajectory(){
-
-  if(    LIGHT_LINE < LINELOWTHRESHOLD      ){ //to far to the right, go left
-    Off(LEFT);
-    until(LIGHT_LINE >= LINELOWTHRESHOLD);
-  }else if ( LIGHT_LINE > LINEHIGHTHRESHOLD ) {
-    Off(RIGHT);
-    until(LIGHT_LINE <= LINEHIGHTHRESHOLD);
-  }
-  
-  
-}
-
-task StartFollowTheLine()
-{
-  //Assume the line is on our right side
-  
-  //let's find it
-  Off (RIGHT);
-  OnFwd (LEFT);
-  
-  until( LIGHT_LINE >= LINELOWTHRESHOLD && LIGHT_LINE <= LINEHIGHTHRESHOLD );//found it
-  
-  while(1)  FollowTheLine();
-  
-
-}
