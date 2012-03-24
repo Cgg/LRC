@@ -1,0 +1,8 @@
+// victory.nqc - where the victory stuff to do when the ball is found is
+// implemented
+
+task victory()
+{
+  // do a 360 degrees rotation
+  // play some music
+}
