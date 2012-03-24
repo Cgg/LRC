@@ -1,0 +1,5 @@
+// BarrelRoll.nqc - where the barrel lifting stuff is done
+
+task barrelRoll()
+{
+}
