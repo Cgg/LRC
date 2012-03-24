@@ -1,8 +1,5 @@
 // BarrelRoll.nqc - where the barrel lifting stuff is done
 
-#include "sensors.nqc"
-#include "claw.nqc"
-
 #define BALL_THRESHOLD 760    // upper limit
 #define CYL_THRESHOLD  820    // lower limit
 // when the value is between these two it means that there is nothing
@@ -46,6 +43,6 @@ task barrelRoll()
   }
   else
   {
-    start roaming;
+    start ROAMINGSTRATEGY;
   }
 }

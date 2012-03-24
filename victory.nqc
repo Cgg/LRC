@@ -1,8 +1,19 @@
 // victory.nqc - where the victory stuff to do when the ball is found is
 // implemented
 
+#define TURN_TIME 360
+
 task victory()
 {
   // do a 360 degrees rotation
+  SetDirection( LEFT, OUT_FWD );
+  SetDirection( RIGHT, OUT_REV );
+  SetOutput( LEFT + RIGHT, OUT_ON );
+  
+  Wait( TURN_TIME );
+  
+  Off( LEFT + RIGHT );
+  
   // play some music
+  PlaySound( 3 );
 }
